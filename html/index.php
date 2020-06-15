@@ -4,7 +4,7 @@ session_start();
 
 $db = setupDb();
 if (!$db) {
-    die("Database could not load!");
+    //die("Database could not load!");
 }
 
 if (isset($_POST['startingTime'])) {
@@ -126,7 +126,7 @@ if (isset($_POST['startingTime'])) {
 <p id="dialogDiv"></p>
 <form action="index.php" method="post">
     Date:<br>
-    <input type="date" name="date">
+    <input type="date" name="date"><br>
     <label for="startingTime">Start Time:</label><br>
     <input type="time" id="startingTime" name="startingTime"><br>
     <label for="endingTime">End Time:</label><br>
