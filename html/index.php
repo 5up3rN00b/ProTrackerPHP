@@ -149,15 +149,15 @@ $len = sizeof($passArr);
     <p id="dialogDiv"></p>
     <form method="post" action="index.php">
         Date:<br>
-        <input type="date" name="date"><br>
+        <input class="protestInput" type="date" name="date"><br>
         <label for="startingTime">Start Time:</label><br>
-        <input type="time" id="startingTime" name="startingTime"><br>
+        <input class="protestInput" type="time" id="startingTime" name="startingTime"><br>
         <label for="endingTime">End Time:</label><br>
-        <input type="time" id="endingTime" name="endingTime"><br>
+        <input class="protestInput" type="time" id="endingTime" name="endingTime"><br>
         <label for="cap">Max size of protesters:</label><br>
-        <input type="text" id="cap" name="cap"><br>
+        <input class="protestInput" type="text" id="cap" name="cap"><br>
         <label for="description">Description:</label><br>
-        <input type="text" id="description" name="description"><br>
+        <input class="protestInput" type="text" id="description" name="description"><br>
         <input class="button" type="submit" id="submit" name="submit"><br>
         <input id="latitude" name="latitude" hidden>
         <input id="longitude" name="longitude" hidden>
