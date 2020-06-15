@@ -16,7 +16,7 @@ if (isset($_POST['startingTime'])) {
     }
 }
 
-$sth = $db->prepare("SELECT `protest_id`, `latitude`, `longitude`, `description` FROM `protests` WHERE `full` = 0");
+$sth = $db->prepare("SELECT `protest_id`, `starting_time`, `ending_time`, `date`, `latitude`, `longitude`, `description` FROM `protests` WHERE `full` = 0");
 $sth->execute();
 $passArr = $sth->fetchAll();
 
@@ -31,7 +31,7 @@ $len = sizeof($passArr);
     <?php
     for ($i = 0; $i < $len; $i++) {
         echo "markers[$i] = L.marker([" . $passArr[$i]['latitude'] . ',' . $passArr[$i]['longitude'] . "]).addTo(map);";
-        echo "markers[$i].bindPopup('" . addslashes($passArr[$i]['description']) . "');";
+        echo "markers[$i].bindPopup('" . "<b>Date:</b>" . $passArr[$i]['date'] . "<br><b>Starting Time:</b>" . $passArr[$i]['starting_time'] . "<br><b>Ending Time:</b>" . $passArr[$i]['ending_time'] . "<br>" . $passArr[$i]['description'] . "');";
     }
     ?>
 
