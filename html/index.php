@@ -158,7 +158,7 @@ $len = sizeof($passArr);
         <input type="text" id="cap" name="cap"><br>
         <label for="description">Description:</label><br>
         <input type="text" id="description" name="description"><br>
-        <input type="submit" id="submit" name="submit"><br>
+        <input class="button" type="submit" id="submit" name="submit"><br>
         <input id="latitude" name="latitude" hidden>
         <input id="longitude" name="longitude" hidden>
     </form>
