@@ -23,7 +23,7 @@ $passArr = $sth->fetchAll();
 $len = sizeof($passArr);
 ?>
 <div class="main">
-    <div id="mapId" style="height: 100%; width: 85%;"></div>
+    <div id="mapId" style="height: 100%; width: 85%; position: absolute;"></div>
     <script>
         let map = L.map('mapId').setView([39, -98], 5);
 
