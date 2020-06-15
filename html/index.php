@@ -33,7 +33,7 @@ $len = sizeof($passArr);
         for ($i = 0; $i < $len; $i++) {
             echo "markers[$i] = L.marker([" . $passArr[$i]['latitude'] . ',' . $passArr[$i]['longitude'] . "]).addTo(map);";
             echo "markers[$i].bindPopup('" . "<b>Date: </b>" . $passArr[$i]['date'] . "<br><b>Starting Time: </b>" . $passArr[$i]['starting_time'] . "<br><b>Ending Time: </b>" . $passArr[$i]['ending_time'] . "<br>" . $passArr[$i]['description'] . "<br>";
-            echo "<form action='index.php' method='post'><input name='join' value='" . $passArr[$i]['protest_id'] . "'><input type='submit' value='Join'></form>" . "');";
+            echo "<form action=\'index.php\' method=\'post\'><input name=\'join\' value=\'" . $passArr[$i]['protest_id'] . "\'><input type=\'submit\' value=\'Join\'></form>" . "');";
         }
         ?>
 
