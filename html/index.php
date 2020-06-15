@@ -133,15 +133,15 @@ $len = sizeof($passArr);
     <b>Create Protest</b> <br>
     <form id="geocodeForm" method="get">
         Street:
-        <input class="geocodeForm" name="street" type="text"> <br>
+        <input class="geocodeForm protestInput" name="street" type="text"> <br>
         City:
-        <input class="geocodeForm" name="city" type="text"> <br>
+        <input class="geocodeForm protestInput" name="city" type="text"> <br>
         County:
-        <input class="geocodeForm" name="county" type="text"> <br>
+        <input class="geocodeForm protestInput" name="county" type="text"> <br>
         State:
-        <input class="geocodeForm" name="state" type="text"> <br>
+        <input class="geocodeForm protestInput" name="state" type="text"> <br>
         Country:
-        <input class="geocodeForm" name="country" type="text"> <br>
+        <input class="geocodeForm protestInput" name="country" type="text"> <br>
         <input name="format" value="json" hidden>
         <input name="limit" value="1" hidden>
     </form>
@@ -149,11 +149,11 @@ $len = sizeof($passArr);
     <p id="dialogDiv"></p>
     <form method="post" action="index.php">
         Date:<br>
-        <input class="protestInput" type="date" name="date"><br>
+        <input type="date" name="date"><br>
         <label for="startingTime">Start Time:</label><br>
-        <input class="protestInput" type="time" id="startingTime" name="startingTime"><br>
+        <input type="time" id="startingTime" name="startingTime"><br>
         <label for="endingTime">End Time:</label><br>
-        <input class="protestInput" type="time" id="endingTime" name="endingTime"><br>
+        <input type="time" id="endingTime" name="endingTime"><br>
         <label for="cap">Max size of protesters:</label><br>
         <input class="protestInput" type="text" id="cap" name="cap"><br>
         <label for="description">Description:</label><br>
