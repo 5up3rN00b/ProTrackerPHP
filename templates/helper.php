@@ -1,6 +1,6 @@
 <?php
 function setupDb() {
-    $dsn = 'mysql:host=localhost;dbname=blizzardftc';
+    $dsn = 'mysql:host=localhost;dbname=protracker';
     $user = 'aaron';
 
     $handle = fopen(__DIR__ . '/../private/keys.csv', 'r');
