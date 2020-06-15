@@ -67,10 +67,17 @@ $protestLen = sizeof($joinedProtests);
             }
 
             if ($joined) {
-                echo "Already joined this protest!');";
+                echo "Already joined this protest!<br>";
             } else {
-                echo "<form action=\'index.php\' method=\'post\'><input name=\'join\' value=\'" . $passArr[$i]['protest_id'] . "\' hidden><input type=\'submit\' value=\'Join\'></form>" . "');";
+                echo "<form action=\'index.php\' method=\'post\'><input name=\'join\' value=\'" . $passArr[$i]['protest_id'] . "\' hidden><input type=\'submit\' value=\'Join\'></form><br>";
             }
+
+
+            $sth = $db->prepare("SELECT `user_id` FROM `participations` WHERE `protest_id`=?");
+            $sth->execute([$passArr[$i]['protest_id']]);
+            $protestNum = $sth->fetchAll();
+            $protestPeopleLen = sizeof($protestNum);
+            echo "<b>" . $protestPeopleLen . "</b> attending this protest!');";
         }
         ?>
 
