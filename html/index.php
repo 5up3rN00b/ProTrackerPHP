@@ -9,7 +9,7 @@ if (!$db) {
 
 if (isset($_POST['startingTime'])) {
     $sth = $db->prepare("INSERT INTO `protests` (`author_id`, `starting_time`, `ending_time`, `date`, `latitude`, `longitude`, `description`, `cap`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-    $sth->execute([1, $_POST['startingTime'], $_POST['endingTime'], $_POST['latitude'], $_POST['longitude'], $_POST['description'], $_POST['cap']]);
+    $sth->execute([1, $_POST['startingTime'], $_POST['endingTime'], $_POST['date'], $_POST['latitude'], $_POST['longitude'], $_POST['description'], $_POST['cap']]);
 }
 ?>
 <div id="mapId" style="height: 500px"></div>
@@ -124,7 +124,7 @@ if (isset($_POST['startingTime'])) {
 </form>
 <p id="upload_process" style="display: none">Checking <img src="media/loader.gif" width="20" height="20" /></p>
 <p id="dialogDiv"></p>
-<form action="index.php" method="post">
+<form method="post" action="index.php">
     Date:<br>
     <input type="date" name="date"><br>
     <label for="startingTime">Start Time:</label><br>
