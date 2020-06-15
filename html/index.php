@@ -26,6 +26,10 @@ if (isset($_POST['join'])) {
     }
 }
 
+if (isset($_POST['logout'])) {
+    unset($_SESSION['user_id']);
+}
+
 if (isset($_POST['startingTime']) && isset($_SESSION['user_id'])) {
     $sth = $db->prepare("INSERT INTO `protests` (`author_id`, `starting_time`, `ending_time`, `date`, `latitude`, `longitude`, `description`, `cap`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
     $sth->execute([$_POST['author_id'], $_POST['startingTime'], $_POST['endingTime'], $_POST['date'], $_POST['latitude'], $_POST['longitude'], $_POST['description'], $_POST['cap']]);
@@ -179,6 +183,10 @@ $protestLen = sizeof($joinedProtests);
     if (!isset($_SESSION['user_id'])) {
         echo "<b>" . "Please login" . "<a href='login.php'>here</a> </b>";
     } else {?>
+    <form method="post" action="index.php">
+        <input name="logout" value="true" hidden>
+        <input class="button" type="submit" value="Logout">
+    </form>
     <b>Create Protest</b> <br>
     <form id="geocodeForm" method="get">
         Street:

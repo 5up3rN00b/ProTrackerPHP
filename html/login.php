@@ -13,7 +13,6 @@ if (isset($_POST['username'])) {
     $passArr = $sth->fetchAll();
 
     if (hash("sha256", $_POST['password']) == $passArr[0]['password']) {
-        $_SESSION['user'] = $_POST['username'];
         $_SESSION['user_id'] = $passArr[0]['user_id'];
         redirect('index');
     }
