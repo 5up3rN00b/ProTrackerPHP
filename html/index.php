@@ -7,6 +7,11 @@ if (!$db) {
     //die("Database could not load!");
 }
 
+if (isset($_POST['join'])) {
+    $sth = $db->prepare("INSERT INTO `participations` (`user_id`, `protest_id`) VALUES (?, ?)");
+    $sth->execute([$_SESSION['user_id'], $_POST['join']]);
+}
+
 if (isset($_POST['startingTime']) && isset($_SESSION['user_id'])) {
     $sth = $db->prepare("INSERT INTO `protests` (`author_id`, `starting_time`, `ending_time`, `date`, `latitude`, `longitude`, `description`, `cap`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
     $sth->execute([$_POST['author_id'], $_POST['startingTime'], $_POST['endingTime'], $_POST['date'], $_POST['latitude'], $_POST['longitude'], $_POST['description'], $_POST['cap']]);
@@ -33,7 +38,7 @@ $len = sizeof($passArr);
         for ($i = 0; $i < $len; $i++) {
             echo "markers[$i] = L.marker([" . $passArr[$i]['latitude'] . ',' . $passArr[$i]['longitude'] . "]).addTo(map);";
             echo "markers[$i].bindPopup('" . "<b>Date: </b>" . $passArr[$i]['date'] . "<br><b>Starting Time: </b>" . $passArr[$i]['starting_time'] . "<br><b>Ending Time: </b>" . $passArr[$i]['ending_time'] . "<br>" . $passArr[$i]['description'] . "<br>";
-            echo "<form action=\'index.php\' method=\'post\'><input name=\'join\' value=\'" . $passArr[$i]['protest_id'] . "\'><input type=\'submit\' value=\'Join\'></form>" . "');";
+            echo "<form action=\'index.php\' method=\'post\'><input name=\'join\' value=\'" . $passArr[$i]['protest_id'] . "\' hidden><input type=\'submit\' value=\'Join\'></form>" . "');";
         }
         ?>
 
