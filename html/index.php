@@ -12,7 +12,7 @@ if (isset($_POST['startingTime'])) {
     $sth->execute([1, $_POST['startingTime'], $_POST['endingTime'], $_POST['date'], $_POST['latitude'], $_POST['longitude'], $_POST['description'], $_POST['cap']]);
 }
 
-$sth = $db->prepare("SELECT `protest_id`, `latitude`, `longitude`, `description` FROM `protest` WHERE `full` = 0");
+$sth = $db->prepare("SELECT `protest_id`, `latitude`, `longitude`, `description` FROM `protests` WHERE `full` = 0");
 $sth->execute();
 $passArr = $sth->fetchAll();
 
