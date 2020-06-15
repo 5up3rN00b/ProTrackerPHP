@@ -30,6 +30,7 @@
 .main {
     margin-left: 25%; /* Same as the width of the sidebar */
     padding: 0px 0px 0px 0px;
+    margin-left: 0px;
 }
 
 /* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
