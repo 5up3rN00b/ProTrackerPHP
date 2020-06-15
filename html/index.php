@@ -33,6 +33,7 @@ $len = sizeof($passArr);
         for ($i = 0; $i < $len; $i++) {
             echo "markers[$i] = L.marker([" . $passArr[$i]['latitude'] . ',' . $passArr[$i]['longitude'] . "]).addTo(map);";
             echo "markers[$i].bindPopup('" . "<b>Date: </b>" . $passArr[$i]['date'] . "<br><b>Starting Time: </b>" . $passArr[$i]['starting_time'] . "<br><b>Ending Time: </b>" . $passArr[$i]['ending_time'] . "<br>" . $passArr[$i]['description'] . "');";
+            echo "<form action='index.php' method='post'><input name='join' value='" . $passArr[$i]['protest_id'] . "'><input type='submit' value='Join'></form>";
         }
         ?>
 
@@ -132,7 +133,7 @@ $len = sizeof($passArr);
 <div class="sidenav">
     <?php
     if (!isset($_SESSION['user_id'])) {
-        echo "<b>" . "Please login" . "</b>";
+        echo "<b>" . "Please login" . "<a href='login.php'>here</a> </b>";
     } else {?>
     <b>Create Protest</b> <br>
     <form id="geocodeForm" method="get">
