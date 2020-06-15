@@ -9,7 +9,7 @@ if (!$db) {
 
 if (isset($_POST['startingTime'])) {
     $sth = $db->prepare("INSERT INTO `protests` (`author_id`, `starting_time`, `ending_time`, `date`, `latitude`, `longitude`, `description`, `cap`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-    $sth->execute([$_SESSION['user'], $_POST['startingTime'], $_POST['endingTime'], $_POST['latitude'], $_POST['longitude'], $_POST['description'], $_POST['cap']]);
+    $sth->execute([1, $_POST['startingTime'], $_POST['endingTime'], $_POST['latitude'], $_POST['longitude'], $_POST['description'], $_POST['cap']]);
 }
 ?>
 <div id="mapId" style="height: 500px"></div>
