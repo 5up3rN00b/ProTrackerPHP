@@ -35,8 +35,8 @@ if (isset($_POST['startingTime']) && isset($_SESSION['user_id'])) {
     }
 }
 
-$sth = $db->prepare("SELECT `protest_id`, `starting_time`, `ending_time`, `date`, `latitude`, `longitude`, `description` FROM `protests` WHERE `full` = 0");
-$sth->execute();
+$sth = $db->prepare("SELECT `protest_id`, `starting_time`, `ending_time`, `date`, `latitude`, `longitude`, `description` FROM `protests` WHERE (`full`=0 OR `author_id`=?)");
+$sth->execute([$_SESSION['user_id']]);
 $passArr = $sth->fetchAll();
 
 $len = sizeof($passArr);
