@@ -130,6 +130,7 @@ $len = sizeof($passArr);
     </script>
 </div>
 <div class="sidenav">
+    <b>Create Protest</b> <br>
     <form id="geocodeForm" method="get">
         Street:
         <input class="geocodeForm" name="street" type="text"> <br>
