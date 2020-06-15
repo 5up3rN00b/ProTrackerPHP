@@ -10,6 +10,20 @@ if (!$db) {
 if (isset($_POST['join'])) {
     $sth = $db->prepare("INSERT INTO `participations` (`user_id`, `protest_id`) VALUES (?, ?)");
     $sth->execute([$_SESSION['user_id'], $_POST['join']]);
+
+    $sth = $db->prepare("SELECT `user_id` FROM `participations` WHERE `protest_id`=?");
+    $sth->execute([$_POST['join']]);
+    $passArr = $sth->fetchAll();
+    $protestCheckLen = sizeof($passArr);
+
+    $sth = $db->prepare("SELECT `cap` FROM `protests` WHERE `protest_id`=?");
+    $sth->execute([$_POST['join']]);
+    $passArr = $sth->fetchAll();
+
+    if ($passArr[0]['cap'] <= $protestCheckLen) {
+        $sth = $db->prepare("UPDATE `protests` SET `full`=1 WHERE `protest_id`=?");
+        $sth->execute([$_POST['join']]);
+    }
 }
 
 if (isset($_POST['startingTime']) && isset($_SESSION['user_id'])) {
@@ -26,6 +40,11 @@ $sth->execute();
 $passArr = $sth->fetchAll();
 
 $len = sizeof($passArr);
+
+$sth = $db->prepare("SELECT `protest_id` FROM `participations` WHERE `user_id`=?");
+$sth->execute([$_SESSION['user_id']]);
+$joinedProtests = $sth->fetchAll();
+$protestLen = sizeof($joinedProtests);
 ?>
 <div class="main">
     <div id="mapId" style="height: 100%; width: 85%; position: absolute;"></div>
@@ -38,7 +57,20 @@ $len = sizeof($passArr);
         for ($i = 0; $i < $len; $i++) {
             echo "markers[$i] = L.marker([" . $passArr[$i]['latitude'] . ',' . $passArr[$i]['longitude'] . "]).addTo(map);";
             echo "markers[$i].bindPopup('" . "<b>Date: </b>" . $passArr[$i]['date'] . "<br><b>Starting Time: </b>" . $passArr[$i]['starting_time'] . "<br><b>Ending Time: </b>" . $passArr[$i]['ending_time'] . "<br>" . $passArr[$i]['description'] . "<br>";
-            echo "<form action=\'index.php\' method=\'post\'><input name=\'join\' value=\'" . $passArr[$i]['protest_id'] . "\' hidden><input type=\'submit\' value=\'Join\'></form>" . "');";
+
+            $joined = false;
+            for ($j = 0; $j < $protestLen; $j++) {
+                if ($passArr[$i]['protest_id'] == $joinedProtests[$j]['protest_id']) {
+                    $joined = true;
+                    break;
+                }
+            }
+
+            if ($joined) {
+                echo "Already joined this protest!');";
+            } else {
+                echo "<form action=\'index.php\' method=\'post\'><input name=\'join\' value=\'" . $passArr[$i]['protest_id'] . "\' hidden><input type=\'submit\' value=\'Join\'></form>" . "');";
+            }
         }
         ?>
 
