@@ -7,9 +7,9 @@ if (!$db) {
     //die("Database could not load!");
 }
 
-if (isset($_POST['startingTime'])) {
+if (isset($_POST['startingTime']) && isset($_SESSION['user_id'])) {
     $sth = $db->prepare("INSERT INTO `protests` (`author_id`, `starting_time`, `ending_time`, `date`, `latitude`, `longitude`, `description`, `cap`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
-    $sth->execute([1, $_POST['startingTime'], $_POST['endingTime'], $_POST['date'], $_POST['latitude'], $_POST['longitude'], $_POST['description'], $_POST['cap']]);
+    $sth->execute([$_POST['author_id'], $_POST['startingTime'], $_POST['endingTime'], $_POST['date'], $_POST['latitude'], $_POST['longitude'], $_POST['description'], $_POST['cap']]);
 
     if ($sth) {
         redirect('index');
@@ -130,6 +130,10 @@ $len = sizeof($passArr);
     </script>
 </div>
 <div class="sidenav">
+    <?php
+    if (!isset($_SESSION['user_id'])) {
+        echo "<b>" . "Please login" . "</b>";
+    } else {?>
     <b>Create Protest</b> <br>
     <form id="geocodeForm" method="get">
         Street:
@@ -161,7 +165,11 @@ $len = sizeof($passArr);
         <input class="button" type="submit" id="submit" name="submit"><br>
         <input id="latitude" name="latitude" hidden>
         <input id="longitude" name="longitude" hidden>
+        <input name="author_id" value="<?php echo $_SESSION['user_id'] ?>" hidden>
     </form>
+    <?php
+    }
+    ?>
 </div>
 <?php
 require '../templates/footer.php';
