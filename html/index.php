@@ -11,10 +11,25 @@ if (isset($_POST['startingTime'])) {
     $sth = $db->prepare("INSERT INTO `protests` (`author_id`, `starting_time`, `ending_time`, `date`, `latitude`, `longitude`, `description`, `cap`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
     $sth->execute([1, $_POST['startingTime'], $_POST['endingTime'], $_POST['date'], $_POST['latitude'], $_POST['longitude'], $_POST['description'], $_POST['cap']]);
 }
+
+$sth = $db->prepare("SELECT `protest_id`, `latitude`, `longitude`, `description` FROM `protest` WHERE `full` = 0");
+$sth->execute();
+$passArr = $sth->fetchAll();
+
+$len = sizeof($passArr);
 ?>
 <div id="mapId" style="height: 500px"></div>
 <script>
     let map = L.map('mapId').setView([39, -98], 5);
+
+    let markers = [];
+
+    <?php
+    for ($i = 0; $i < $len; $i++) {
+        echo "markers[$i] = L.marker([" . $passArr[$i]['latitude'] . ',' . $passArr[$i]['longitude'] . "]).addTo(map);";
+        echo "markers[$i].bindPopup('" . addslashes($passArr[$i]['description']) . "');";
+    }
+    ?>
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         maxZoom: 19,
