@@ -7,7 +7,7 @@ if (!$db) {
     //die("Database could not load!");
 }
 
-if (isset($_POST['join'])) {
+if (isset($_POST['join']) && isset($_SESSION['user_id'])) {
     $sth = $db->prepare("INSERT INTO `participations` (`user_id`, `protest_id`) VALUES (?, ?)");
     $sth->execute([$_SESSION['user_id'], $_POST['join']]);
 
