@@ -1,6 +1,16 @@
 <?php
 require '../templates/header.php';
-//require '../templates/helper.php';
+session_start();
+
+$db = setupDb();
+if (!$db) {
+    die("Database could not load!");
+}
+
+if (isset($_POST['startingTime'])) {
+    $sth = $db->prepare("INSERT INTO `protests` (`author_id`, `starting_time`, `ending_time`, `date`, `latitude`, `longitude`, `description`, `cap`) VALUES (?, ?, ?, ?, ?, ?, ?, ?)");
+    $sth->execute([$_SESSION['user'], $_POST['startingTime'], $_POST['endingTime'], $_POST['latitude'], $_POST['longitude'], $_POST['description'], $_POST['cap']]);
+}
 ?>
 <div id="mapId" style="height: 500px"></div>
 <script>
@@ -114,7 +124,9 @@ require '../templates/header.php';
 </form>
 <p id="upload_process" style="display: none">Checking <img src="media/loader.gif" width="20" height="20" /></p>
 <p id="dialogDiv"></p>
-<form action="">
+<form action="index.php" method="post">
+    Date:<br>
+    <input type="date" name="date">
     <label for="startingTime">Start Time:</label><br>
     <input type="time" id="startingTime" name="startingTime"><br>
     <label for="endingTime">End Time:</label><br>
