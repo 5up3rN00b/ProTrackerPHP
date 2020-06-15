@@ -1,5 +1,23 @@
 <?php
 require '../templates/header.php';
+session_start();
+
+$db = setupDb();
+if (!$db) {
+    //die("Database could not load!");
+}
+
+if (isset($_POST['username'])) {
+    $sth = $db->prepare("SELECT `user_id`, `password` FROM `users` WHERE `email`=?");
+    $sth->execute([$_POST['username']]);
+    $passArr = $sth->fetchAll();
+
+    if (hash("sha256", $_POST['password']) == $passArr[0]['password']) {
+        $_SESSION['user'] = $_POST['username'];
+        $_SESSION['user_id'] = $passArr[0]['user_id'];
+        redirect('index');
+    }
+}
 ?>
 <form action="" method="post">
     <div class="container">
@@ -18,16 +36,11 @@ require '../templates/header.php';
         </div>
 
         <div class="form-group">
-            <label for="terms"><input type="checkbox" id="terms" name="terms" value="terms"> I Agree to Terms & Conditions</label><br>
-        </div>
-
-
-        <div class="form-group">
             <button type="submit" class="registerbtn" value="Login">Sign In</button>
         </div>
 
         <div class="container signin">
-            <p>Please sign-up for an account? <a href="register.php">Sign up</a>.</p>
+            <p>Please sign up for an account if you do not have one <a href="register.php">Sign up</a>.</p>
         </div>
 </form>
 <?php
